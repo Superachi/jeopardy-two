@@ -3,5 +3,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Achi.Godot.Audio" Version="1.0.1.1" />
+    <PackageReference Include="Achi.Godot.Art" Version="1.0.4" />
+    <PackageReference Include="Achi.Godot.Common" Version="1.0.8.4" />
+    <PackageReference Include="Achi.Godot.Logging" Version="1.0.3.2" />
+    <PackageReference Include="Achi.Godot.PathResolving" Version="1.0.1" />
+  </ItemGroup>
 </Project>

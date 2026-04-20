@@ -1,0 +1,159 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Godot Run Project",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--path",
+                "${workspaceFolder}"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Run the JeopardyTwo Godot project"
+        },
+        {
+            "label": "Godot Run Project (Debug)",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--path",
+                "${workspaceFolder}",
+                "--verbose",
+                "--debug-collisions"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Run JeopardyTwo with verbose output and collision debugging"
+        },
+        {
+            "label": "Open in Visual Studio",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "Invoke-Item",
+                "./JeopardyTwo.sln"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "detail": "Open the JeopardyTwo solution in Visual Studio"
+        },
+        {
+            "label": "Open in Godot Editor",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--editor",
+                "--path",
+                "${workspaceFolder}"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Open JeopardyTwo in the Godot editor"
+        },
+        {
+            "label": "Check and Update Packages (Both Sources)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                ".vscode/update-packages.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Check for NuGet package updates and apply them in JeopardyTwo"
+        },
+        {
+            "label": "Export Debug Build",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--headless",
+                "--export-debug",
+                "Windows Desktop",
+                "build/JeopardyTwo-debug.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Export JeopardyTwo as a debug build to the build folder",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Export Release Build",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--headless",
+                "--export-release",
+                "Windows Desktop",
+                "build/JeopardyTwo.exe"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Export JeopardyTwo as a release build to the build folder",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    ]
+}
