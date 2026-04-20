@@ -15,10 +15,6 @@ public partial class QuestionBoard : Panel
         SetPanelSize();
     }
 
-    public override void _Process(double delta)
-	{
-	}
-
     private void OnWindowResize(Vector2 screenSize)
     {
         SetPanelSize();

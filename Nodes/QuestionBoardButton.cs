@@ -1,19 +1,26 @@
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using JeopardyTwo.Models;
+using JeopardyTwo.Nodes;
 
 [SceneFile]
 public partial class QuestionBoardButton : Button
 {
     private int _buttonIndex;
     public int Index => _buttonIndex;
+    private QuestionModel _question = new QuestionModel();
+    private CategoryModel _category = new CategoryModel();
 
-    public void Initialize(QuestionModel question, int buttonIndex = 0)
+    public void Initialize(CategoryModel category, int buttonIndex = 0)
     {
-        Name = nameof(QuestionBoardButton) + "_" + question.PointValue;
+        _question = category.Questions[buttonIndex];
+        _category = category;
 
-        Text = question.PointValue.ToString();
+        Name = nameof(QuestionBoardButton) + "_" + _question.PointValue;
+
+        Text = _question.PointValue.ToString();
         _buttonIndex = buttonIndex;
     }
 
+    public override void _Pressed() => QuestionManager.DisplayQuestionScreen(_question, _category);
 }

@@ -39,7 +39,7 @@ public partial class QuestionBoardColumn : Node2D
         
         foreach (var question in Category.Questions) {
             var button = SceneCreationHelper.InstantiateSceneForType<QuestionBoardButton>();
-            button.Initialize(question, i);
+            button.Initialize(Category, i);
             AddChild(button);
             i++;
         }
@@ -64,7 +64,6 @@ public partial class QuestionBoardColumn : Node2D
         var buttonHeight = screenSize.Y * 0.6f / buttonCount;
         var hPadding = columnWidth / 10;
         var vPadding = buttonHeight / 10;
-
 
         foreach (var child in GetChildren()) {
             if (child is QuestionBoardButton button) {
