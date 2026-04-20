@@ -1,0 +1,152 @@
+[
+	{
+		"Name": "Splatoon 3 Maps",
+		"Questions": [
+			{
+				"Question": "What canyon-themed launch stage in Splatoon 3 features raised plateaus and ramps?",
+				"Answer": "Scorch Gorge",
+				"PointValue": 100
+			},
+			{
+				"Question": "What urban stage is built around a long, winding central bridge over water?",
+				"Answer": "Eeltail Alley",
+				"PointValue": 200
+			},
+			{
+				"Question": "What marketplace stage includes giant fish decorations and compact mid-fights?",
+				"Answer": "Hagglefish Market",
+				"PointValue": 300
+			},
+			{
+				"Question": "What stage is set in a scrapyard-like worksite with rotating and elevated metal platforms?",
+				"Answer": "Mincemeat Metalworks",
+				"PointValue": 400
+			}
+		]
+	},
+	{
+		"Name": "Weapon Kits",
+		"Questions": [
+			{
+				"Question": "What special weapon comes with the Splattershot in Splatoon 3?",
+				"Answer": "Trizooka",
+				"PointValue": 100
+			},
+			{
+				"Question": "What sub weapon is paired with the Aerospray RG?",
+				"Answer": "Sprinkler",
+				"PointValue": 200
+			},
+			{
+				"Question": "What special weapon is included in the N-ZAP '85 kit?",
+				"Answer": "Tacticooler",
+				"PointValue": 300
+			},
+			{
+				"Question": "What sub weapon comes with the .52 Gal in Splatoon 3?",
+				"Answer": "Splash Wall",
+				"PointValue": 400
+			}
+		]
+	},
+	{
+		"Name": "Characters",
+		"Questions": [
+			{
+				"Question": "What idol duo consists of Callie and Marie?",
+				"Answer": "The Squid Sisters",
+				"PointValue": 100
+			},
+			{
+				"Question": "What trio hosts the news in Splatoon 3?",
+				"Answer": "Deep Cut",
+				"PointValue": 200
+			},
+			{
+				"Question": "Which Deep Cut member is the eel tamer?",
+				"Answer": "Shiver",
+				"PointValue": 300
+			},
+			{
+				"Question": "What is the name of Marina's musical partner in Off the Hook?",
+				"Answer": "Pearl",
+				"PointValue": 400
+			}
+		]
+	},
+	{
+		"Name": "Splatoon Music",
+		"Questions": [
+			{
+				"Question": "Which idol duo performs the song City of Color?",
+				"Answer": "The Squid Sisters",
+				"PointValue": 100
+			},
+			{
+				"Question": "What band performs Clickbait in Splatoon 3?",
+				"Answer": "C-Side",
+				"PointValue": 200
+			},
+			{
+				"Question": "Which duo performs Ebb & Flow?",
+				"Answer": "Off the Hook",
+				"PointValue": 300
+			},
+			{
+				"Question": "What Splatoon 3 idol group performs Anarchy Rainbow?",
+				"Answer": "Deep Cut",
+				"PointValue": 400
+			}
+		]
+	},
+	{
+		"Name": "Dev Interviews",
+		"Questions": [
+			{
+				"Question": "Which longtime Nintendo producer is most commonly associated with producer interviews for the Splatoon series?",
+				"Answer": "Hisashi Nogami",
+				"PointValue": 100
+			},
+			{
+				"Question": "In interviews about Splatoon 3, what theme did the developers say influenced the game's setting and style after Splatoon 2?",
+				"Answer": "Chaos",
+				"PointValue": 200
+			},
+			{
+				"Question": "What real-world sport did Splatoon developers mention when explaining the origins of Turf War's area-control concept?",
+				"Answer": "Paintball",
+				"PointValue": 300
+			},
+			{
+				"Question": "According to developer discussions, what player choice from the final Splatoon 2 Splatfest helped shape Splatoon 3's world direction?",
+				"Answer": "Team Chaos winning the Final Fest",
+				"PointValue": 400
+			}
+		]
+	},
+	{
+		"Name": "Salmon Run",
+		"Questions": [
+			{
+				"Question": "What company hires players for Salmon Run shifts?",
+				"Answer": "Grizzco",
+				"PointValue": 100
+			},
+			{
+				"Question": "What enemy type must be defeated to drop Golden Eggs in Salmon Run?",
+				"Answer": "Boss Salmonids",
+				"PointValue": 200
+			},
+			{
+				"Question": "What collectible do players deliver to the basket during a Salmon Run wave?",
+				"Answer": "Golden Eggs",
+				"PointValue": 300
+			},
+			{
+				"Question": "What special boss encounter can occur in Salmon Run where workers fight a giant King Salmonid after regular waves?",
+				"Answer": "An Xtrawave",
+				"PointValue": 400
+			}
+		]
+	}
+]

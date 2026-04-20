@@ -2,6 +2,7 @@ using Achi.Godot.Logging;
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using JeopardyTwo.Models;
+using JeopardyTwo.Nodes;
 using Nodes.Display;
 
 [SceneFile]
@@ -11,6 +12,7 @@ public partial class QuestionScreen : Control
     private RichTextLabel _questionLabel = null!;
     private RichTextLabel _answerLabel = null!;
     private Button _revealButton = null!;
+    private Button _backButton = null!;
 
     private CategoryModel _category = new CategoryModel();
     private QuestionModel _question = new QuestionModel();
@@ -24,8 +26,10 @@ public partial class QuestionScreen : Control
         _questionLabel = GetNode<RichTextLabel>("QuestionLabel");
         _answerLabel = GetNode<RichTextLabel>("AnswerLabel");
         _revealButton = GetNode<Button>("RevealButton");
+        _backButton = GetNode<Button>("BackButton");
 
         _revealButton.Pressed += OnRevealButtonPressed;
+        _backButton.Pressed += OnBackButtonPressed;
         DisplayManager.DisplaySignals.WindowResize += OnWindowResize;
     }
 
@@ -48,6 +52,12 @@ public partial class QuestionScreen : Control
         _revealButton.Hide();
     }
 
+    private void OnBackButtonPressed()
+    {
+        QuestionManager.ShowQuestionBoard();
+        QueueFree();
+    }
+
     private void SetPositions()
     {
         AdjustLabelSettings(_categoryLabel, 0.1f);
@@ -57,8 +67,11 @@ public partial class QuestionScreen : Control
         AdjustLabelSettings(_answerLabel, answerVOffsetRatio);
 
         var screenSize = DisplayManager.ScreenSize;
-        var buttonSize = _revealButton.Size;
-        _revealButton.Position = new Vector2(screenSize.X / 2 - buttonSize.X / 2, screenSize.Y * answerVOffsetRatio - buttonSize.Y / 2);
+        var revealButtonSize = _revealButton.Size;
+        _revealButton.Position = new Vector2(screenSize.X / 2 - revealButtonSize.X / 2, screenSize.Y * answerVOffsetRatio - revealButtonSize.Y / 2);
+
+        var backButtonSize = _backButton.Size;
+        _backButton.Position = new Vector2(32, 32);
     }
 
     private void OnWindowResize(Vector2 screenSize) => SetPositions();
