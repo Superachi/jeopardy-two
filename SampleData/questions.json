@@ -1,0 +1,152 @@
+[
+  {
+    "Name": "Science",
+    "Questions": [
+      {
+        "Question": "What planet is known as the Red Planet?",
+        "Answer": "Mars",
+        "PointValue": 100
+      },
+      {
+        "Question": "What gas do plants absorb from the atmosphere?",
+        "Answer": "Carbon dioxide",
+        "PointValue": 200
+      },
+      {
+        "Question": "What is the chemical symbol for water?",
+        "Answer": "H2O",
+        "PointValue": 300
+      },
+      {
+        "Question": "What force keeps planets in orbit around the sun?",
+        "Answer": "Gravity",
+        "PointValue": 400
+      },
+      {
+        "Question": "What part of the cell contains genetic material?",
+        "Answer": "The nucleus",
+        "PointValue": 500
+      }
+    ]
+  },
+  {
+    "Name": "History",
+    "Questions": [
+      {
+        "Question": "Who was the first President of the United States?",
+        "Answer": "George Washington",
+        "PointValue": 100
+      },
+      {
+        "Question": "In what year did World War II end?",
+        "Answer": "1945",
+        "PointValue": 200
+      },
+      {
+        "Question": "What ancient civilization built the pyramids of Giza?",
+        "Answer": "The Egyptians",
+        "PointValue": 300
+      },
+      {
+        "Question": "Which wall came down in 1989, symbolizing the end of the Cold War?",
+        "Answer": "The Berlin Wall",
+        "PointValue": 400
+      },
+      {
+        "Question": "Who wrote the Declaration of Independence?",
+        "Answer": "Thomas Jefferson",
+        "PointValue": 500
+      }
+    ]
+  },
+  {
+    "Name": "Geography",
+    "Questions": [
+      {
+        "Question": "What is the largest ocean on Earth?",
+        "Answer": "The Pacific Ocean",
+        "PointValue": 100
+      },
+      {
+        "Question": "What is the capital of Canada?",
+        "Answer": "Ottawa",
+        "PointValue": 200
+      },
+      {
+        "Question": "Which continent is the Sahara Desert located on?",
+        "Answer": "Africa",
+        "PointValue": 300
+      },
+      {
+        "Question": "What river runs through Egypt?",
+        "Answer": "The Nile River",
+        "PointValue": 400
+      },
+      {
+        "Question": "What is the tallest mountain in the world above sea level?",
+        "Answer": "Mount Everest",
+        "PointValue": 500
+      }
+    ]
+  },
+  {
+    "Name": "Literature",
+    "Questions": [
+      {
+        "Question": "Who wrote Romeo and Juliet?",
+        "Answer": "William Shakespeare",
+        "PointValue": 100
+      },
+      {
+        "Question": "What is the name of the hobbit played by Elijah Wood in the film trilogy?",
+        "Answer": "Frodo Baggins",
+        "PointValue": 200
+      },
+      {
+        "Question": "Who wrote 1984?",
+        "Answer": "George Orwell",
+        "PointValue": 300
+      },
+      {
+        "Question": "What novel begins with the line Call me Ishmael?",
+        "Answer": "Moby-Dick",
+        "PointValue": 400
+      },
+      {
+        "Question": "Who created the detective Sherlock Holmes?",
+        "Answer": "Arthur Conan Doyle",
+        "PointValue": 500
+      }
+    ]
+  },
+  {
+    "Name": "Movies",
+    "Questions": [
+      {
+        "Question": "What movie features a theme park filled with cloned dinosaurs?",
+        "Answer": "Jurassic Park",
+        "PointValue": 100
+      },
+      {
+        "Question": "Who directed Jaws?",
+        "Answer": "Steven Spielberg",
+        "PointValue": 200
+      },
+      {
+        "Question": "What is the highest-grossing film of James Cameron's career as of 2026?",
+        "Answer": "Avatar",
+        "PointValue": 300
+      },
+      {
+        "Question": "Which film won the Academy Award for Best Picture for 1994?",
+        "Answer": "Forrest Gump",
+        "PointValue": 400
+      },
+      {
+        "Question": "What is the name of the kingdom in Disney's Frozen?",
+        "Answer": "Arendelle",
+        "PointValue": 500
+      }
+    ]
+  }
+]

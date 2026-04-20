@@ -12,7 +12,7 @@ config_version=5
 
 config/name="JeopardyTwo"
 run/main_scene="uid://bj2jy6o8j7ejf"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
@@ -26,3 +26,4 @@ project/assembly_name="JeopardyTwo"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0.27738744, 0.33101815, 0.6175001, 1)

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dcwmc042405jj"]
+
+[ext_resource type="StyleBox" uid="uid://cunxi0ti6ne24" path="res://Themes/BlackPanel.tres" id="1_wwgkv"]
+[ext_resource type="Script" uid="uid://1xp3qi1vnr4a" path="res://Nodes/QuestionBoardButton.cs" id="2_ip07m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwgkv"]
+bg_color = Color(0, 0, 0, 0.39215687)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5r6t"]
+bg_color = Color(0, 0, 0, 0.39215687)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1rch"]
+bg_color = Color(0, 0, 0, 0.0627451)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o86qu"]
+bg_color = Color(0, 0, 0, 0.2509804)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[node name="Button" type="Button" unique_id=747459934]
+offset_right = 192.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("1_wwgkv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wwgkv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_r5r6t")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_g1rch")
+theme_override_styles/focus = SubResource("StyleBoxFlat_o86qu")
+text = "100"
+script = ExtResource("2_ip07m")
