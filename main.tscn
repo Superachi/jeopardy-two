@@ -1,13 +1,6 @@
 [gd_scene format=3 uid="uid://bj2jy6o8j7ejf"]
 
 [ext_resource type="Script" uid="uid://b8eaw8ixe8x02" path="res://Main.cs" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://ld4e17v80137" path="res://Nodes/QuestionBoard.tscn" id="2_h2yge"]
 
 [node name="Main" type="Node2D" unique_id=1911186746]
 script = ExtResource("1_ig7tw")
-
-[node name="Panel" parent="." unique_id=1188255817 instance=ExtResource("2_h2yge")]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 1136.0
-offset_bottom = 632.0

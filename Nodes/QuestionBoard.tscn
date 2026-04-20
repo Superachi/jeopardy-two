@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://ld4e17v80137"]
 
 [ext_resource type="StyleBox" uid="uid://cunxi0ti6ne24" path="res://Themes/BlackPanel.tres" id="1_wbqdv"]
+[ext_resource type="Script" uid="uid://dsuacajr6q0r1" path="res://Nodes/QuestionBoard.cs" id="2_03pj0"]
 
 [node name="Panel" type="Panel" unique_id=1188255817]
 offset_right = 704.0
 offset_bottom = 512.0
 theme_override_styles/panel = ExtResource("1_wbqdv")
+script = ExtResource("2_03pj0")
