@@ -6,6 +6,7 @@ using JeopardyTwo.Nodes;
 [SceneFile]
 public partial class QuestionBoardButton : Button
 {
+    public bool Visited { get; private set; }
     private int _buttonIndex;
     public int Index => _buttonIndex;
     private QuestionModel _question = new QuestionModel();
@@ -22,5 +23,14 @@ public partial class QuestionBoardButton : Button
         _buttonIndex = buttonIndex;
     }
 
-    public override void _Pressed() => QuestionManager.DisplayQuestionScreen(_question, _category);
+    public override void _Pressed()
+    {
+        QuestionManager.DisplayQuestionScreen(_question, _category);
+
+        if (!Visited)
+        {
+            Modulate = Modulate * new Color(Modulate.R, Modulate.G, Modulate.B, 0.2f);
+            Visited = true;
+        }
+    }
 }
