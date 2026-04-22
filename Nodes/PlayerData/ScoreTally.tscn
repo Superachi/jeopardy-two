@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ba84fxm5hncui"]
+
+[ext_resource type="StyleBox" uid="uid://cunxi0ti6ne24" path="res://Themes/BlackPanel.tres" id="1_je5kn"]
+[ext_resource type="Script" uid="uid://2fagdwdhxk78" path="res://Nodes/PlayerDisplay/ScoreTally.cs" id="2_iejqr"]
+
+[node name="Panel" type="Panel" unique_id=1188255817]
+offset_right = 256.0
+offset_bottom = 144.0
+theme_override_styles/panel = ExtResource("1_je5kn")
+script = ExtResource("2_iejqr")
+
+[node name="NameLabel" type="RichTextLabel" parent="." unique_id=1072947009]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 256.0
+offset_bottom = 48.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="TitleLabel" type="RichTextLabel" parent="." unique_id=1830231076]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 256.0
+offset_bottom = 80.0
+text = "Legendario"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="RichTextLabel" parent="." unique_id=1734214670]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 256.0
+offset_bottom = 136.0
+theme_override_font_sizes/normal_font_size = 32
+text = "00000"
+horizontal_alignment = 1
+vertical_alignment = 1

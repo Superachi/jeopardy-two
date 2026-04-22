@@ -19,7 +19,7 @@ public partial class QuestionManager : Node
         Singleton.MarkAsSingleton(this);
 
         // Load the questions from a JSON file and create CategoryModels and QuestionModels
-        var filePath = "res://SampleData/SplatQuestions.json";
+        var filePath = "res://SampleData/gameQuestions.json";
 
         List<CategoryModel> categories = [];
         if (FileAccess.FileExists(filePath)) {
