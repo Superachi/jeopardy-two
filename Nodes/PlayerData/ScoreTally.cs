@@ -6,18 +6,18 @@ namespace Achi.Godot.Nodes.PlayerData;
 [SceneFile]
 public partial class ScoreTally : Panel
 {
-    private Label _nameLabel = null!;
-    private Label _titleLabel = null!;
-    private Label _scoreLabel = null!;
+    private RichTextLabel _nameLabel = null!;
+    private RichTextLabel _titleLabel = null!;
+    private RichTextLabel _scoreLabel = null!;
     private int _score;
 
     public override void _Ready()
     {
         Name = $"{nameof(ScoreTally)}_UnnamedPlayer";
 
-        _nameLabel = GetNode<Label>("NameLabel");
-        _titleLabel = GetNode<Label>("TitleLabel");
-        _scoreLabel = GetNode<Label>("ScoreLabel");
+        _nameLabel = GetNode<RichTextLabel>("NameLabel");
+        _titleLabel = GetNode<RichTextLabel>("TitleLabel");
+        _scoreLabel = GetNode<RichTextLabel>("ScoreLabel");
     }
 
     public void AddScore(int score)

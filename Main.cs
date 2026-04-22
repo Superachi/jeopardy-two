@@ -1,4 +1,5 @@
 using Achi.Godot.Logging;
+using Achi.Godot.Nodes.PlayerData;
 using Achi.Godot.PathResolving;
 using Godot;
 using JeopardyTwo.Nodes;
@@ -19,6 +20,17 @@ public partial class Main : Node2D
 
         var questionManager = new QuestionManager();
         AddChild(questionManager);
+
+        var playerManager = new PlayerManager();
+        AddChild(playerManager);
+
+        var pm = new PlayerModel()
+        {
+            Name = "Player 1",
+            Title = "The First Player",
+            Score = 0
+        };
+        playerManager.CreatePlayer(pm);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
