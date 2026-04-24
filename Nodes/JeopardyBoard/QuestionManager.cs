@@ -6,7 +6,7 @@ using Godot;
 using JeopardyTwo.Models;
 using Newtonsoft.Json;
 
-namespace JeopardyTwo.Nodes;
+namespace JeopardyTwo.Nodes.JeopardyBoard;
 
 public partial class QuestionManager : Node
 {

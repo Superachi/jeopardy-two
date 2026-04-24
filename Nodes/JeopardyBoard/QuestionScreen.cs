@@ -1,10 +1,11 @@
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using JeopardyTwo.Models;
-using JeopardyTwo.Nodes;
 using Nodes.Display;
 using JeopardyTwo.Helpers;
 using System.Collections.Generic;
+
+namespace JeopardyTwo.Nodes.JeopardyBoard;
 
 [SceneFile]
 public partial class QuestionScreen : Control

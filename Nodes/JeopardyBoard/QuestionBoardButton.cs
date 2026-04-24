@@ -1,7 +1,8 @@
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using JeopardyTwo.Models;
-using JeopardyTwo.Nodes;
+
+namespace JeopardyTwo.Nodes.JeopardyBoard;
 
 [SceneFile]
 public partial class QuestionBoardButton : Button

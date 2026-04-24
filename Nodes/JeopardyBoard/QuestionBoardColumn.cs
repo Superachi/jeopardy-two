@@ -1,9 +1,9 @@
-using Achi.Godot.Logging;
 using Achi.Godot.PathResolving;
 using Godot;
 using JeopardyTwo.Models;
-using JeopardyTwo.Nodes;
 using Nodes.Display;
+
+namespace JeopardyTwo.Nodes.JeopardyBoard;
 
 public partial class QuestionBoardColumn : Node2D
 {

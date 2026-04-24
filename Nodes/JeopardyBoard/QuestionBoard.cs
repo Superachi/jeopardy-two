@@ -2,7 +2,7 @@ using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using Nodes.Display;
 
-namespace JeopardyTwo.Nodes;
+namespace JeopardyTwo.Nodes.JeopardyBoard;
 
 [SceneFile]
 public partial class QuestionBoard : Panel

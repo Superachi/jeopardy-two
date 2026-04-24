@@ -1,3 +1,4 @@
+using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Achi.Godot.Nodes.PlayerData;
 using Achi.Godot.PathResolving;
@@ -7,36 +8,19 @@ using Nodes.Display;
 
 public partial class Main : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
+    public static Singleton<Main> Singleton { get; private set; } = new ();
+
 	public override void _Ready()
     {
+        Singleton.MarkAsSingleton(this);
+
         AddChild(new DisplayManager());
 
         var Logger = new LogNode();
         AddChild(Logger);
 
-        var questionBoard = SceneCreationHelper.InstantiateSceneForType<QuestionBoard>();
-        AddChild(questionBoard);
-
-        var questionManager = new QuestionManager();
-        AddChild(questionManager);
-
-        var playerManager = new PlayerManager();
-        AddChild(playerManager);
-
-        var pm = new PlayerModel()
-        {
-            Name = "Player 1",
-            Title = "The First Player",
-            Score = 0
-        };
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
+        var startingScreen = SceneCreationHelper.InstantiateSceneForType<StartingScreen>();
+        AddChild(startingScreen);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
