@@ -31,6 +31,12 @@ public partial class Main : Node2D
             Score = 0
         };
         playerManager.CreatePlayer(pm);
+        playerManager.CreatePlayer(pm);
+        playerManager.CreatePlayer(pm);
+        playerManager.CreatePlayer(pm);
+        playerManager.CreatePlayer(pm);
+        playerManager.CreatePlayer(pm);
+        playerManager.CreatePlayer(pm);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
