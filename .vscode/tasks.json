@@ -43,6 +43,63 @@
             "detail": "Run JeopardyTwo with verbose output and collision debugging"
         },
         {
+            "label": "Godot Run Two Instances",
+            "dependsOrder": "parallel",
+            "dependsOn": [
+                "Godot Run Instance 1",
+                "Godot Run Instance 2"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "detail": "Run two JeopardyTwo windowed instances"
+        },
+        {
+            "label": "Godot Run Instance 1",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--path",
+                "${workspaceFolder}",
+                "--windowed",
+                "--position",
+                "80,80"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "Run JeopardyTwo window instance #1"
+        },
+        {
+            "label": "Godot Run Instance 2",
+            "type": "shell",
+            "command": "D:\\Documents\\Godot\\GodotExe\\godot-mono.exe",
+            "args": [
+                "--path",
+                "${workspaceFolder}",
+                "--windowed",
+                "--position",
+                "1280,80"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "Run JeopardyTwo window instance #2"
+        },
+        {
             "label": "Open in Visual Studio",
             "type": "shell",
             "command": "powershell",
