@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ba84fxm5hncui"]
 
 [ext_resource type="StyleBox" uid="uid://cunxi0ti6ne24" path="res://Themes/BlackPanel.tres" id="1_je5kn"]
-[ext_resource type="Script" uid="uid://2fagdwdhxk78" path="res://Nodes/PlayerDisplay/ScoreTally.cs" id="2_iejqr"]
+[ext_resource type="Script" uid="uid://2fagdwdhxk78" path="res://Nodes/PlayerData/ScoreTally.cs" id="2_iejqr"]
 
 [node name="Panel" type="Panel" unique_id=1188255817]
 offset_right = 256.0

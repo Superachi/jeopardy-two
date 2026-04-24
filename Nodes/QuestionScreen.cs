@@ -1,9 +1,10 @@
-using Achi.Godot.Logging;
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using JeopardyTwo.Models;
 using JeopardyTwo.Nodes;
 using Nodes.Display;
+using JeopardyTwo.Helpers;
+using System.Collections.Generic;
 
 [SceneFile]
 public partial class QuestionScreen : Control
@@ -14,8 +15,8 @@ public partial class QuestionScreen : Control
     private Button _revealButton = null!;
     private Button _backButton = null!;
 
-    private CategoryModel _category = new CategoryModel();
-    private QuestionModel _question = new QuestionModel();
+    private CategoryModel _category = new();
+    private QuestionModel _question = new();
 
 
 	public override void _Ready()
@@ -60,17 +61,33 @@ public partial class QuestionScreen : Control
 
     private void SetPositions()
     {
-        AdjustLabelSettings(_categoryLabel, 0.1f);
-        AdjustLabelSettings(_questionLabel, 0.3f);
+        var nodeFonts = new List<NodeFontResizeInfo>
+        {
+            new() {
+                NodeWithFontToResize = _categoryLabel,
+                Ratio = 0.1f,
+            },
+            new() {
+                NodeWithFontToResize = _questionLabel,
+                Ratio = 0.05f,
+            },
+            new() {
+                NodeWithFontToResize = _answerLabel,
+                Ratio = 0.1f,
+            }
+        };
+        FontResizeHelper.ResizeNodeFonts(nodeFonts);
 
-        var answerVOffsetRatio = 0.7f;
+        AdjustLabelSettings(_categoryLabel, 0.15f);
+        AdjustLabelSettings(_questionLabel, 0.4f);
+
+        var answerVOffsetRatio = 0.65f;
         AdjustLabelSettings(_answerLabel, answerVOffsetRatio);
 
         var screenSize = DisplayManager.ScreenSize;
         var revealButtonSize = _revealButton.Size;
         _revealButton.Position = new Vector2(screenSize.X / 2 - revealButtonSize.X / 2, screenSize.Y * answerVOffsetRatio - revealButtonSize.Y / 2);
 
-        var backButtonSize = _backButton.Size;
         _backButton.Position = new Vector2(32, 32);
     }
 
