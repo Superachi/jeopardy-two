@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dqpakl34rljsl"]
+
+[ext_resource type="Script" uid="uid://o4r215yk3an5" path="res://Nodes/JeopardyBackstage/BackstageManager.cs" id="1_xqxc7"]
+
+[node name="BackstageManager" type="Control" unique_id=1088071388]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xqxc7")
+
+[node name="CommandLineEdit" type="LineEdit" parent="." unique_id=254408198]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 1136.0
+offset_bottom = 112.0
+text = "Command"
+placeholder_text = "Enter a command here"

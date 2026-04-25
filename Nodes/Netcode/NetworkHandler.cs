@@ -5,6 +5,7 @@ using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Godot;
 using Nodes.Netcode.PacketManagement;
+using Nodes.Netcode.Packets;
 using Nodes.Netcode.PeerManagement;
 using Nodes.Signals;
 
@@ -266,6 +267,24 @@ public partial class NetworkHandler : Node
     {
         var networkHandler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
         networkHandler.ClientPacketListener.RegisterPacketHandler(handler);
+    }
+
+    public static bool TryGetConnection(out ENetConnection? connection)
+    {
+        var handler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
+        connection = handler.Connection;
+        return connection != null;
+    }
+
+    public static void BroadcastPacket(PacketInfo packet)
+    {
+        var handler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
+        if (handler.Connection == null)
+        {
+            throw new Exception("NetworkHandler connection returned null.");
+        }
+
+        packet.Broadcast(handler.Connection);
     }
 
     # endregion Public API

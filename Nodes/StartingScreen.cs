@@ -58,7 +58,10 @@ public partial class StartingScreen : Control
 
     private void OnBackstageButtonPressed()
     {
-        Main.Singleton.Instance.AddChild(new BackstageManager());
+        Main.Singleton.Instance.AddChild(new ServerNetManager());
+
+        var backstageManager = SceneCreationHelper.InstantiateSceneForType<BackstageManager>();
+        Main.Singleton.Instance.AddChild(backstageManager);
         QueueFree();
     }
 }

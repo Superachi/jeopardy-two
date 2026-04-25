@@ -1,6 +1,5 @@
 using Achi.Godot.Common;
 using Achi.Godot.Logging;
-using Achi.Godot.Nodes.PlayerData;
 using Achi.Godot.PathResolving;
 using Godot;
 using JeopardyTwo.Nodes;
@@ -12,6 +11,8 @@ public partial class Main : Node2D
 
 	public override void _Ready()
     {
+        OS.SetEnvironment("ProjectFileAttribute_ProjectName", "jeopardy-two");
+
         Singleton.MarkAsSingleton(this);
 
         AddChild(new DisplayManager());
