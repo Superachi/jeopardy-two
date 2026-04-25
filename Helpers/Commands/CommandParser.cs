@@ -16,6 +16,10 @@ public static class ClientCommandParser
     {
         new CSHelp(),
         new CSWhisper(),
+        new CSAudio(),
+        new CSGivePoints(),
+        new CSSetPlayerName(),
+        new CSSetPlayerTitle(),
     };
 
     public static List<CommandSpec> Commands => _commands;

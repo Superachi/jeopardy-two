@@ -1,10 +1,8 @@
-using System;
 using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Achi.Godot.PathResolving;
 using Godot;
 using Nodes.Display;
-using Nodes.Signals;
 
 namespace Achi.Godot.Nodes.PlayerData;
 
@@ -27,6 +25,7 @@ public partial class PlayerManager : Node
         scoreTally.LoadFromPlayerModel(playerModel);
 
         LogNode.Log($"Created player: {playerModel.Name} with title {playerModel.Title} and score {playerModel.Score}");
+        UpdatePlayerIndexes();
 
         PlayerCount++;
         SetScoreTallyPositions();
@@ -56,4 +55,78 @@ public partial class PlayerManager : Node
     {
         SetScoreTallyPositions();
     }
+
+    private void UpdatePlayerIndexes()
+    {
+        var index = 0;
+        foreach (var child in GetChildren())
+        {
+            if (child is ScoreTally scoreTally)
+            {
+                scoreTally.SetIndex(index);
+                index++;
+            }
+        }
+    }
+
+    #region Command executions
+
+    public static void GivePointsToPlayer(int playerIndex, int points)
+    {
+        Singleton.Instance.AddScoreForPlayer(playerIndex, points);
+    }
+
+    private void AddScoreForPlayer(int playerIndex, int points)
+    {
+        foreach (var child in GetChildren())
+        {
+            if (child is ScoreTally scoreTally && scoreTally.PlayerIndex == playerIndex)
+            {
+                scoreTally.AddScore(points);
+                return;
+            }
+        }
+
+        LogNode.Log($"Tried to give points to player with index {playerIndex}, but no such player was found.");
+    }
+
+    public static void AdjustPlayerName(int playerIndex, string playerName)
+    {
+        Singleton.Instance.SetPlayerName(playerIndex, playerName);
+    }
+
+    private void SetPlayerName(int playerIndex, string playerName)
+    {
+        foreach (var child in GetChildren())
+        {
+            if (child is ScoreTally scoreTally && scoreTally.PlayerIndex == playerIndex)
+            {
+                scoreTally.SetPlayerName(playerName);
+                return;
+            }
+        }
+
+        LogNode.Log($"Tried to set player name for player with index {playerIndex}, but no such player was found.");
+    }
+
+    public static void AdjustPlayerTitle(int playerIndex, string playerTitle)
+    {
+        Singleton.Instance.SetPlayerTitle(playerIndex, playerTitle);
+    }
+
+    private void SetPlayerTitle(int playerIndex, string playerTitle)
+    {
+        foreach (var child in GetChildren())
+        {
+            if (child is ScoreTally scoreTally && scoreTally.PlayerIndex == playerIndex)
+            {
+                scoreTally.SetPlayerTitle(playerTitle);
+                return;
+            }
+        }
+
+        LogNode.Log($"Tried to set player title for player with index {playerIndex}, but no such player was found.");
+    }
+
+    #endregion Command executions
 }
