@@ -3,6 +3,7 @@ using Achi.Godot.Nodes.PlayerData;
 using Achi.Godot.PathResolving;
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
+using JeopardyTwo.Nodes.JeopardyBackstage;
 using JeopardyTwo.Nodes.JeopardyBoard;
 using Nodes.Netcode;
 
@@ -51,11 +52,13 @@ public partial class StartingScreen : Control
         playerManager.CreatePlayer(pm);
         playerManager.CreatePlayer(pm);
 
-        NetworkHandler.Singleton.Instance.StartClient();
+        Main.Singleton.Instance.AddChild(new ClientNetManager());
+        QueueFree();
     }
 
     private void OnBackstageButtonPressed()
     {
-        NetworkHandler.Singleton.Instance.StartServer();
+        Main.Singleton.Instance.AddChild(new BackstageManager());
+        QueueFree();
     }
 }

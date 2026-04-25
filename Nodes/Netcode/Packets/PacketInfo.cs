@@ -1,8 +1,10 @@
-using Achi.Godot.Logging;
 using Godot;
 
 namespace Nodes.Netcode.Packets;
 
+/// <summary>
+/// Inherit from this class when constructing your own PacketInfo. When setting the type, ensure you use a unique byte value that doesn't conflict with <seealso cref="BuiltInPacketTypes"/> packet types or other custom packets in your project.
+/// </summary>
 public abstract partial class PacketInfo : RefCounted
 {
 	/// <summary>
@@ -19,11 +21,6 @@ public abstract partial class PacketInfo : RefCounted
 		/// Notifies clients that a peer ID is no longer valid (peer left).
 		/// </summary>
 		public const byte IdUnassignment = 1;
-
-		/// <summary>
-		/// Example: Player position update packet.
-		/// </summary>
-		public const byte PlayerPosition = 10;
 	}
 
 	/// <summary>
@@ -35,7 +32,7 @@ public abstract partial class PacketInfo : RefCounted
 	/// ENet transfer flags used when sending this packet.
 	/// </summary>
 	public int Flag { get; protected set; }
-    
+
     /// <summary>
     /// Creates the raw bytes for this packet. The base version only writes the packet type.
     /// </summary>
@@ -77,11 +74,19 @@ public abstract partial class PacketInfo : RefCounted
 	/// Sends this packet to one specific peer.
 	/// </summary>
 	/// <param name="target">The peer that should receive the packet.</param>
-	public void Send(ENetPacketPeer target) => target.Send(0, Encode(), (int)Flag);
+	public void Send(ENetPacketPeer target)
+    {
+        NetworkHandler.DebugLog($"Sending packet of type {Type} with flag {Flag} to peer {target}.");
+        target.Send(0, Encode(), (int)Flag);
+    }
 
 	/// <summary>
 	/// Sends this packet to all peers connected to the server.
 	/// </summary>
 	/// <param name="server">The server connection used to broadcast.</param>
-	public void Broadcast(ENetConnection server) => server.Broadcast(0, Encode(), (int)Flag);
+	public void Broadcast(ENetConnection server)
+    {
+        NetworkHandler.DebugLog($"Broadcasting packet of type {Type} with flag {Flag} to all peers.");
+        server.Broadcast(0, Encode(), (int)Flag);
+    }
 }

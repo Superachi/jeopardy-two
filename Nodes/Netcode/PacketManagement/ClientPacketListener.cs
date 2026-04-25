@@ -34,6 +34,7 @@ public partial class ClientPacketListener : Node
             NetworkHandler.DebugLog($"A handler is already registered for client packet type {(int)handler.PacketType}.");
             return false;
         }
+        NetworkHandler.DebugLog($"Registered client packet handler for type {(int)handler.PacketType}.");
         _packetHandlers[handler.PacketType] = handler;
         return true;
     }
@@ -105,7 +106,7 @@ public partial class ClientPacketListener : Node
                 // TODO: Implement client-side removal of peer IDs if needed
                 break;
             default:
-                NetworkHandler.DebugLog($"Unhandled client packet type index {data[0]}.");
+                NetworkHandler.DebugLog($"Unhandled client packet type index {data[0]}. Ensure a handler is registered for this type if it's expected.");
                 break;
         }
     }

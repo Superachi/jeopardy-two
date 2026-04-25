@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Achi.Godot.Common;
@@ -35,7 +36,7 @@ public partial class NetworkHandler : Node
 
     // General netcode vars
     private ENetConnection? _connection = null;
-    private bool _isServer = false;
+    public bool IsServer { get; private set; } = false;
 
     public ENetConnection? Connection => _connection;
 
@@ -49,8 +50,24 @@ public partial class NetworkHandler : Node
     /// </summary>
     public static void DebugLog(string message)
     {
-        if (DebugLoggingEnabled)
-            LogNode.Log(message);
+        if (!DebugLoggingEnabled) return;
+
+        string finalMessage = "";
+        var handler = NetworkHandler.Singleton.Instance;
+        if (handler.IsServer)
+        {
+            finalMessage += "[🟢SERVER] ";
+        }
+        else
+        {
+            var clientId = handler.ClientPeerManager?.LocalPeerId;
+            if (clientId != null)
+                finalMessage += $"[🟣CLIENT #{clientId}] ";
+            else
+                finalMessage += "[🟣CLIENT (ID UNKNOWN)] ";
+        }
+        finalMessage += message;
+        LogNode.Log(finalMessage);
     }
 
     /// <summary>
@@ -75,7 +92,7 @@ public partial class NetworkHandler : Node
         AddChild(GeneralNetworkSignals);
     }
 
-    public void StartServer(string ip = "127.0.0.1", int port = 42069)
+    private void StartNetServer(string ip = "127.0.0.1", int port = 42069)
     {
         _connection = new ENetConnection();
         var result = _connection.CreateHostBound(ip, port);
@@ -87,10 +104,10 @@ public partial class NetworkHandler : Node
         }
 
         DebugLog($"Server started successfully on {ip}:{port}");
-        _isServer = true;
+        IsServer = true;
     }
 
-    public void StartClient(string ip = "127.0.0.1", int port = 42069)
+    private void StartNetClient(string ip = "127.0.0.1", int port = 42069)
     {
         _connection = new ENetConnection();
         var result = _connection.CreateHost(1);
@@ -101,8 +118,10 @@ public partial class NetworkHandler : Node
             return;
         }
 
-        DebugLog($"Client started successfully on {ip}:{port}");
-        _isServer = false;
+        _connection.ConnectToHost(ip, port);
+        DebugLog($"Client started and connecting to {ip}:{port}");
+
+        IsServer = false;
     }
 
     public override void _Process(double delta)
@@ -127,14 +146,14 @@ public partial class NetworkHandler : Node
                     return;
 
                 case ENetConnection.EventType.Connect:
-                    if (_isServer)
+                    if (IsServer)
                         PeerConnected(peer);
                     else
                         ConnectedToServer();
                     break;
 
                 case ENetConnection.EventType.Disconnect:
-                    if (_isServer)
+                    if (IsServer)
                     {
                         PeerDisconnected(peer);
                     }
@@ -147,7 +166,7 @@ public partial class NetworkHandler : Node
                     break;
 
                 case ENetConnection.EventType.Receive:
-                    if (_isServer) {
+                    if (IsServer) {
                         int peerId = (int)peer.GetMeta("id");
                         var data = peer.GetPacket();
                         ServerSignals.EmitSignal(ServerSignals.SignalName.PacketReceived, peerId, data);
@@ -211,7 +230,7 @@ public partial class NetworkHandler : Node
 
     public void DisconnectClient()
     {
-        if (_isServer)
+        if (IsServer)
         {
             DebugLog("Cannot disconnect client from server mode.");
             return;
@@ -220,4 +239,34 @@ public partial class NetworkHandler : Node
         _serverPeer?.PeerDisconnect();
         _serverPeer = null;
     }
+
+    # region Public API
+
+    private static string UninitializedErrorMessage() => $"NetworkHandler singleton instance is not initialized.";
+
+    public static void StartServer(string ip = "127.0.0.1", int port = 42069)
+    {
+        var handler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
+        handler.StartNetServer(ip, port);
+    }
+
+    public static void StartClient(string ip = "127.0.0.1", int port = 42069)
+    {
+        var handler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
+        handler.StartNetClient(ip, port);
+    }
+
+    public static void RegisterServerPacketHandler(IServerPacketHandler handler)
+    {
+        var networkHandler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
+        networkHandler.ServerPacketListener.RegisterPacketHandler(handler);
+    }
+
+    public static void RegisterClientPacketHandler(IClientPacketHandler handler)
+    {
+        var networkHandler = Singleton.Instance ?? throw new Exception(UninitializedErrorMessage());
+        networkHandler.ClientPacketListener.RegisterPacketHandler(handler);
+    }
+
+    # endregion Public API
 }

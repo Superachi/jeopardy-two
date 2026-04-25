@@ -32,6 +32,7 @@ public partial class ServerPacketListener : Node
             NetworkHandler.DebugLog($"A handler is already registered for packet type {(int)handler.PacketType}.");
             return false;
         }
+        NetworkHandler.DebugLog($"Registered server packet handler for type {(int)handler.PacketType}.");
         _packetHandlers[handler.PacketType] = handler;
         return true;
     }
