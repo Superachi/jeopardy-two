@@ -4,6 +4,7 @@ using Achi.Godot.PathResolving;
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
 using JeopardyTwo.Nodes.JeopardyBoard;
+using Nodes.Netcode;
 
 namespace JeopardyTwo.Nodes;
 
@@ -50,10 +51,11 @@ public partial class StartingScreen : Control
         playerManager.CreatePlayer(pm);
         playerManager.CreatePlayer(pm);
 
-        QueueFree();
+        NetworkHandler.Singleton.Instance.StartClient();
     }
 
     private void OnBackstageButtonPressed()
     {
+        NetworkHandler.Singleton.Instance.StartServer();
     }
 }
