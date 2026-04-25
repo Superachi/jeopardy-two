@@ -170,11 +170,13 @@ public partial class NetworkHandler : Node
                     if (IsServer) {
                         int peerId = (int)peer.GetMeta("id");
                         var data = peer.GetPacket();
+                        DebugLog($"GET packet from {peerId} with {data.Length} bytes.");
                         ServerSignals.EmitSignal(ServerSignals.SignalName.PacketReceived, peerId, data);
                     }
                     else
                     {
                         var data = peer.GetPacket();
+                        DebugLog($"GET packet with {data.Length} bytes.");
                         ClientSignals.EmitSignal(ClientSignals.SignalName.PacketReceived, data);
                     }
                     break;

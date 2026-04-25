@@ -1,7 +1,7 @@
 using Achi.Godot.Common;
 using Achi.Godot.PathResolving.Attributes;
 using Godot;
-using JeopardyTwo.Nodes.JeopardyBackstage;
+using JeopardyTwo.Nodes.JeopardyBackstage.Commands.Netcode;
 using Nodes.Netcode;
 
 [SceneFile]
@@ -17,7 +17,7 @@ public partial class BackstageManager : Control
 
     private void OnCommandSubmitted(string command)
     {
-        var packet = new TestPacket().Create(command);
+        var packet = new CommandPacket().Create(command);
         NetworkHandler.BroadcastPacket(packet);
     }
 }

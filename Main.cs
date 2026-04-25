@@ -3,7 +3,9 @@ using Achi.Godot.Logging;
 using Achi.Godot.PathResolving;
 using Godot;
 using JeopardyTwo.Nodes;
+using JeopardyTwo.Nodes.JeopardyBackstage.Commands.Netcode;
 using Nodes.Display;
+using Nodes.Netcode;
 
 public partial class Main : Node2D
 {
@@ -22,10 +24,12 @@ public partial class Main : Node2D
 
         var startingScreen = SceneCreationHelper.InstantiateSceneForType<StartingScreen>();
         AddChild(startingScreen);
+
+        NetworkHandler.RegisterClientPacketHandler(new CommandClientPacketHandler());
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 	}
 }
