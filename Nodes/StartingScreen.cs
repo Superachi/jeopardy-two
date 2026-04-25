@@ -48,9 +48,6 @@ public partial class StartingScreen : Control
         playerManager.CreatePlayer(pm);
         playerManager.CreatePlayer(pm);
         playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
-        playerManager.CreatePlayer(pm);
 
         Main.Singleton.Instance.AddChild(new ClientNetManager());
         QueueFree();

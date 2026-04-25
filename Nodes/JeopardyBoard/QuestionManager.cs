@@ -74,4 +74,18 @@ public partial class QuestionManager : Node
             }
         }
     }
+
+    public static void RevealAnswer()
+    {
+        foreach (var child in Singleton.Instance.GetChildren())
+        {
+            if (child is QuestionScreen questionScreen)
+            {
+                questionScreen.RevealAnswer();
+                return;
+            }
+        }
+
+        LogNode.Log("No active QuestionScreen found to reveal the answer.");
+    }
 }

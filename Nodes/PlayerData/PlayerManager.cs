@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using Achi.Godot.Audio.Models;
 using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Achi.Godot.PathResolving;
 using Godot;
 using Nodes.Display;
+using RecoilTwo.Paths.Generated;
 
 namespace Achi.Godot.Nodes.PlayerData;
 
@@ -74,6 +77,56 @@ public partial class PlayerManager : Node
     public static void GivePointsToPlayer(int playerIndex, int points)
     {
         Singleton.Instance.AddScoreForPlayer(playerIndex, points);
+
+        // Play a sound effect based on the point gain/loss value.
+        List<string> GetAudioPathsWithPrefix(string prefix)
+        {
+            // Use reflection to get all fields starting with the prefix for low value point gain
+            var possibleSounds = new List<string>();
+            foreach (var field in typeof(SoundsPaths).GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
+            {
+                if (field.Name.StartsWith(prefix) && field.Name != prefix)
+                {
+                    var value = field.GetValue(null) as string;
+                    if (!string.IsNullOrEmpty(value))
+                        possibleSounds.Add(value);
+                }
+            }
+            return possibleSounds;
+        }
+
+        var soundToPlay = "";
+        var possibleSounds = new List<string>();
+        var soundsPathsType = typeof(SoundsPaths);
+        if (points > 0)
+        {
+            if (points <= 200)
+            {
+                possibleSounds = GetAudioPathsWithPrefix("Sounds_PointGain_LowValue_");
+            }
+            else if (points <= 400)
+            {
+                possibleSounds = GetAudioPathsWithPrefix("Sounds_PointGain_MidValue_");
+            }
+            else
+            {
+                possibleSounds = GetAudioPathsWithPrefix("Sounds_PointGain_HighValue_");
+            }
+        }
+        else
+        {
+            if (points >= -400)
+            {
+                possibleSounds = GetAudioPathsWithPrefix("Sounds_PointLoss_LowValue_");
+            }
+            else
+            {
+                possibleSounds = GetAudioPathsWithPrefix("Sounds_PointLoss_HighValue_");
+            }
+        }
+
+        soundToPlay = Common.Helpers.RNGHelper.ChooseFromCollection(possibleSounds);
+        new AudioPlayModel(soundToPlay).Play();
     }
 
     private void AddScoreForPlayer(int playerIndex, int points)

@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Achi.Godot.Logging;
+using Models.Commands;
 
 namespace JeopardyTwo.Helpers.Commands;
 
 public static class ClientCommandParser
 {
     public const string CommandPrefix = "/";
-
-    public const string CNHelp = "help";
-    public const string CNWhisper = "whisper";
-    public const string CNAudio = "audio";
 
     private static List<CommandSpec> _commands = new List<CommandSpec>
     {
@@ -20,6 +17,8 @@ public static class ClientCommandParser
         new CSGivePoints(),
         new CSSetPlayerName(),
         new CSSetPlayerTitle(),
+        new CSRevealAnswer(),
+        new CSAward(),
     };
 
     public static List<CommandSpec> Commands => _commands;
@@ -27,7 +26,7 @@ public static class ClientCommandParser
     public static void ParseCommand(string command)
     {
         // First, check if the command starts with a slash, indicating it's a command.
-        if (!command.StartsWith("/"))
+        if (!command.StartsWith(CommandPrefix))
         {
             return;
         }

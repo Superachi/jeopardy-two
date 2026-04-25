@@ -48,6 +48,8 @@ public partial class QuestionScreen : Control
         SetPositions();
     }
 
+    public void RevealAnswer() => OnRevealButtonPressed();
+
     private void OnRevealButtonPressed()
     {
         _answerLabel.Show();

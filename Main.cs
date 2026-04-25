@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Achi.Godot.Audio;
+using Achi.Godot.Audio.Models;
 using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Achi.Godot.PathResolving;
@@ -22,13 +25,23 @@ public partial class Main : Node2D
         var Logger = new LogNode();
         AddChild(Logger);
 
+        // Audio
+        var audioManager = new AudioManager() { Name = nameof(AudioManager) };
+        var bus = new AudioBusModel()
+        {
+            Index = 0,
+            Name = "SFX",
+            VolumeDb = 0f,
+        };
+        audioManager.ConfigureBuses(new List<AudioBusModel>() { bus });
+        AddChild(audioManager);
+
         var startingScreen = SceneCreationHelper.InstantiateSceneForType<StartingScreen>();
         AddChild(startingScreen);
 
         NetworkHandler.RegisterClientPacketHandler(new CommandClientPacketHandler());
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
 	{
 	}

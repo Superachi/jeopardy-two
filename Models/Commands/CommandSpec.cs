@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+namespace Models.Commands;
+
 public class CommandSpec
 {
     public virtual string Name => "name";

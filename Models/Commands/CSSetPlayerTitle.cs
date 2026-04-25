@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Achi.Godot.Nodes.PlayerData;
 
+namespace Models.Commands;
 public class CSSetPlayerTitle : CommandSpec
 {
     public override string Name => "setplayertitle";

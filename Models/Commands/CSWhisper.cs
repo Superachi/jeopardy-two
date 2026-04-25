@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Achi.Godot.Logging;
 
+namespace Models.Commands;
 public class CSWhisper : CommandSpec
 {
     public override string Name => "whisper";

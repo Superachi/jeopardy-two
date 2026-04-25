@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Achi.Godot.Logging;
 
+namespace Models.Commands;
+
 public class CSAudio : CommandSpec
 {
     public override string Name => "audio";

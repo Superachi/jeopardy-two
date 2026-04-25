@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Achi.Godot.Logging;
 using JeopardyTwo.Helpers.Commands;
 
+namespace Models.Commands;
+
 public class CSHelp : CommandSpec
 {
     public override string Name => "help";
