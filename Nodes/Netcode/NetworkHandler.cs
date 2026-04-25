@@ -3,6 +3,7 @@ using System.Linq;
 using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Godot;
+using Nodes.Netcode.PeerRegistry;
 using Nodes.Signals;
 
 namespace Nodes.Netcode;
@@ -10,8 +11,13 @@ namespace Nodes.Netcode;
 public partial class NetworkHandler : Node
 {
     public static Singleton<NetworkHandler> Singleton { get; private set; } = new();
-    public ServerSignals ServerSignals = new();
-    public ClientSignals ClientSignals = new();
+    public ServerPeerManager ServerPeerManager { get; } = new();
+    public ServerPacketListener ServerPacketListener { get; } = new();
+    public ClientPeerManager ClientPeerManager { get; } = new();
+    public ClientPacketListener ClientPacketListener { get; } = new();
+    public ServerSignals ServerSignals { get; } = new();
+    public ClientSignals ClientSignals { get; } = new();
+    public GeneralNetworkSignals GeneralNetworkSignals { get; } = new();
 
     // Server vars
     private Queue<int> _availablePeerIds = new(Enumerable.Range(0, 256));
@@ -30,8 +36,14 @@ public partial class NetworkHandler : Node
     public override void _Ready()
     {
         Singleton.MarkAsSingleton(this);
+        
+        AddChild(ServerPeerManager);
+        AddChild(ServerPacketListener);
+        AddChild(ClientPeerManager);
+        AddChild(ClientPacketListener);
         AddChild(ServerSignals);
         AddChild(ClientSignals);
+        AddChild(GeneralNetworkSignals);
     }
 
     public void StartServer(string ip = "127.0.0.1", int port = 42069)

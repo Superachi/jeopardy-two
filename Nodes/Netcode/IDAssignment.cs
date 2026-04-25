@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Achi.Godot.Logging;
 using Godot;
+using Nodes.Netcode.Packets;
 
 namespace Nodes.Netcode;
 
@@ -14,7 +15,7 @@ public partial class IDAssignment : PacketInfo
 	/// <summary>
 	/// IDs of the other players already connected when this packet was sent.
 	/// </summary>
-	public List<byte> RemotedIds { get; private set; } = new();
+	public List<byte> RemoteIds { get; private set; } = new();
 
 	/// <summary>
 	/// Builds a new ID assignment packet with the provided local and remote player IDs.
@@ -29,7 +30,7 @@ public partial class IDAssignment : PacketInfo
 			Type = PacketType.IdAssignment,
 			Flag = (int)ENetPacketPeer.FlagReliable,
 			Id = id,
-			RemotedIds = new List<byte>(remoteIds),
+			RemoteIds = new List<byte>(remoteIds),
 		};
 
 		return info;
@@ -51,40 +52,25 @@ public partial class IDAssignment : PacketInfo
 	/// Encodes the packet type, local ID, and all remote IDs into a byte array.
 	/// </summary>
 	/// <returns>Serialized packet bytes ready for network transfer.</returns>
-	public override byte[] Encode()
+	protected override void WritePayload(PacketWriter writer)
 	{
-		var data = new byte[2 + RemotedIds.Count];
-		data[0] = (byte)Type;
-		data[1] = Id;
-
-		for (int i = 0; i < RemotedIds.Count; i++)
-		{
-			data[2 + i] = RemotedIds[i];
-		}
-
-		return data;
+		writer.WriteByte(Id);
+		writer.WriteBytes(RemoteIds);
 	}
 
 	/// <summary>
 	/// Decodes packet bytes into packet type, local ID, and remote ID list.
 	/// </summary>
 	/// <param name="data">Serialized packet bytes received from the network.</param>
-	public override void Decode(byte[] data)
+	protected override void ReadPayload(PacketReader reader)
 	{
-		base.Decode(data);
-
-		if (data == null || data.Length < 2)
+		if (!reader.TryReadByte(out byte id))
 		{
 			LogNode.Log("IDAssignment packet is missing the assigned ID byte.");
 			return;
 		}
 
-		Id = data[1];
-		RemotedIds.Clear();
-
-		for (int i = 2; i < data.Length; i++)
-		{
-			RemotedIds.Add(data[i]);
-		}
+		Id = id;
+		RemoteIds = new List<byte>(reader.ReadRemainingBytes());
 	}
 }

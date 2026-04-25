@@ -1,7 +1,7 @@
 using Achi.Godot.Logging;
 using Godot;
 
-namespace Nodes.Netcode;
+namespace Nodes.Netcode.Packets;
 
 public partial class PacketInfo : RefCounted
 {
@@ -20,16 +20,17 @@ public partial class PacketInfo : RefCounted
 	/// ENet transfer flags used when sending this packet.
 	/// </summary>
 	public int Flag { get; set; }
-
-	/// <summary>
-	/// Creates the raw bytes for this packet. The base version only writes the packet type.
-	/// </summary>
-	/// <returns>Byte array ready to send over the network.</returns>
-	public virtual byte[] Encode()
+    
+    /// <summary>
+    /// Creates the raw bytes for this packet. The base version only writes the packet type.
+    /// </summary>
+    /// <returns>Byte array ready to send over the network.</returns>
+    public virtual byte[] Encode()
 	{
-		var data = new byte[1];
-		data[0] = (byte)Type;
-		return data;
+		var writer = new PacketWriter();
+		writer.WriteByte((byte)Type);
+		WritePayload(writer);
+		return writer.ToArray();
 	}
 
 	/// <summary>
@@ -38,24 +39,34 @@ public partial class PacketInfo : RefCounted
 	/// <param name="data">The bytes received from the network.</param>
 	public virtual void Decode(byte[] data)
 	{
-		if (data == null || data.Length < 1)
+		var reader = PacketReader.FromPacket(data);
+		if (!reader.TryReadByte(out byte packetType))
 		{
 			LogNode.Log("Received empty or null packet data.");
 			return;
 		}
 
-		Type = (PacketType)data[0];
+		Type = (PacketType)packetType;
+		ReadPayload(reader);
+	}
+
+	protected virtual void WritePayload(PacketWriter writer)
+	{
+	}
+
+	protected virtual void ReadPayload(PacketReader reader)
+	{
 	}
 
 	/// <summary>
 	/// Sends this packet to one specific peer.
 	/// </summary>
 	/// <param name="target">The peer that should receive the packet.</param>
-	public void Send(ENetPacketPeer target) => target.Send(0, Encode(), Flag);
+	public void Send(ENetPacketPeer target) => target.Send(0, Encode(), (int)Flag);
 
 	/// <summary>
 	/// Sends this packet to all peers connected to the server.
 	/// </summary>
 	/// <param name="server">The server connection used to broadcast.</param>
-	public void Broadcast(ENetConnection server) => server.Broadcast(0, Encode(), Flag);
+	public void Broadcast(ENetConnection server) => server.Broadcast(0, Encode(), (int)Flag);
 }

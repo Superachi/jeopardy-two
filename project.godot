@@ -15,6 +15,10 @@ run/main_scene="uid://bj2jy6o8j7ejf"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+NetworkHandler="*uid://spybviptdj2q"
+
 [dotnet]
 
 project/assembly_name="JeopardyTwo"
