@@ -4,7 +4,7 @@ using Nodes.Netcode.Packets;
 using Nodes.Signals;
 using Godot;
 
-namespace Nodes.Netcode.PeerRegistry;
+namespace Nodes.Netcode.PacketManagement;
 
 /// <summary>
 /// Listens for server packet events and dispatches them to registered IServerPacketHandler implementations.

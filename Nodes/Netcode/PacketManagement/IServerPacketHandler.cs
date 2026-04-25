@@ -1,6 +1,6 @@
 using Nodes.Netcode.Packets;
 
-namespace Nodes.Netcode.PeerRegistry;
+namespace Nodes.Netcode.PacketManagement;
 
 /// <summary>
 /// Handles a specific packet type received by the server packet listener.

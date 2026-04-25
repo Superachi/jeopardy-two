@@ -3,7 +3,7 @@ using Achi.Godot.Logging;
 using Godot;
 using Nodes.Signals;
 
-namespace Nodes.Netcode.PeerRegistry;
+namespace Nodes.Netcode.PeerManagement;
 
 /// <summary>
 /// Tracks and manages the local and remote peer IDs for the client.

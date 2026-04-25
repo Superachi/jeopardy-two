@@ -3,7 +3,8 @@ using System.Linq;
 using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Godot;
-using Nodes.Netcode.PeerRegistry;
+using Nodes.Netcode.PacketManagement;
+using Nodes.Netcode.PeerManagement;
 using Nodes.Signals;
 
 namespace Nodes.Netcode;

@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using Achi.Godot.Logging;
 using Godot;
 using Nodes.Netcode.Packets;
+using Nodes.Netcode.PeerManagement;
 using Nodes.Signals;
 
-namespace Nodes.Netcode.PeerRegistry;
+namespace Nodes.Netcode.PacketManagement;
 
 /// <summary>
 /// Listens for client packet events and dispatches them to registered handlers or the peer manager.
