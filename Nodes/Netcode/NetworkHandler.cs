@@ -23,18 +23,10 @@ public partial class NetworkHandler : Node
     /// <summary>
     /// The maximum number of peers allowed in the session. Configurable at construction.
     /// </summary>
-    /// <summary>
-    /// The maximum number of peers allowed in the session. Configurable at construction or via project settings.
-    /// </summary>
-    public int MaxPeerCount { get; set; }
-
-    public NetworkHandler(int maxPeerCount = 256)
-    {
-        MaxPeerCount = maxPeerCount;
-    }
+    public int MaxPeerCount { get; set; } = 256;
 
     // Server vars
-    private Queue<int> _availablePeerIds;
+    private Queue<int> _availablePeerIds = new();
 
     private Dictionary<int, ENetPacketPeer> _clientPeers = new();
 
