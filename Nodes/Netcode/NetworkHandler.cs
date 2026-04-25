@@ -22,7 +22,15 @@ public partial class NetworkHandler : Node
     /// <summary>
     /// The maximum number of peers allowed in the session. Configurable at construction.
     /// </summary>
-    public int MaxPeerCount { get; set; } = 256;
+    /// <summary>
+    /// The maximum number of peers allowed in the session. Configurable at construction or via project settings.
+    /// </summary>
+    public int MaxPeerCount { get; set; }
+
+    public NetworkHandler(int maxPeerCount = 256)
+    {
+        MaxPeerCount = maxPeerCount;
+    }
 
     // Server vars
     private Queue<int> _availablePeerIds;
@@ -58,6 +66,11 @@ public partial class NetworkHandler : Node
     public override void _Ready()
     {
         Singleton.MarkAsSingleton(this);
+        if (MaxPeerCount <= 0 || MaxPeerCount > 256)
+        {
+            MaxPeerCount = 256;
+            DebugLog("MaxPeerCount was out of range. Reset to 256.");
+        }
         _availablePeerIds = new Queue<int>(Enumerable.Range(0, MaxPeerCount));
 
         AddChild(ServerPeerManager);
@@ -102,8 +115,7 @@ public partial class NetworkHandler : Node
     public override void _Process(double delta)
     {
         if (_connection == null) return;
-
-
+        HandlePackets();
     }
 
     private void HandlePackets()

@@ -3,7 +3,7 @@ using Godot;
 
 namespace Nodes.Netcode.Packets;
 
-public partial class PacketInfo : RefCounted
+public abstract partial class PacketInfo : RefCounted
 {
 	/// <summary>
 	/// Built-in packet type constants for the netcode system. Use these for library packets; user packets should use their own byte values.
@@ -34,7 +34,7 @@ public partial class PacketInfo : RefCounted
 	/// <summary>
 	/// ENet transfer flags used when sending this packet.
 	/// </summary>
-	public int Flag { get; set; }
+	public int Flag { get; protected set; }
     
     /// <summary>
     /// Creates the raw bytes for this packet. The base version only writes the packet type.
