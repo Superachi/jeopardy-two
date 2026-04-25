@@ -34,16 +34,24 @@ public class SoundsPaths
         public const string Sounds_PointLoss_HighValue_ = Sounds_PointLoss_ + "HighValue/";
             // Assets/Sounds/PointLoss/HighValue/metal-pipe-falling-sound.mp3
             public const string Sounds_PointLoss_HighValue_MetalPipeFallingSound = Sounds_PointLoss_HighValue_ + "metal-pipe-falling-sound.mp3";
+            // Assets/Sounds/PointLoss/HighValue/minecraft-tnt-explosion.mp3
+            public const string Sounds_PointLoss_HighValue_MinecraftTntExplosion = Sounds_PointLoss_HighValue_ + "minecraft-tnt-explosion.mp3";
             // Assets/Sounds/PointLoss/HighValue/smash-bros-hit.mp3
             public const string Sounds_PointLoss_HighValue_SmashBrosHit = Sounds_PointLoss_HighValue_ + "smash-bros-hit.mp3";
+            // Assets/Sounds/PointLoss/HighValue/spongebob-fail.mp3
+            public const string Sounds_PointLoss_HighValue_SpongebobFail = Sounds_PointLoss_HighValue_ + "spongebob-fail.mp3";
             // Assets/Sounds/PointLoss/HighValue/super-smash-bros-ultimate-blast-zone.mp3
             public const string Sounds_PointLoss_HighValue_SuperSmashBrosUltimateBlastZone = Sounds_PointLoss_HighValue_ + "super-smash-bros-ultimate-blast-zone.mp3";
         // Assets/Sounds/PointLoss/LowValue
         public const string Sounds_PointLoss_LowValue_ = Sounds_PointLoss_ + "LowValue/";
+            // Assets/Sounds/PointLoss/LowValue/bottle-breaking-sound-effect.mp3
+            public const string Sounds_PointLoss_LowValue_BottleBreakingSoundEffect = Sounds_PointLoss_LowValue_ + "bottle-breaking-sound-effect.mp3";
             // Assets/Sounds/PointLoss/LowValue/buzzer-error.mp3
             public const string Sounds_PointLoss_LowValue_BuzzerError = Sounds_PointLoss_LowValue_ + "buzzer-error.mp3";
             // Assets/Sounds/PointLoss/LowValue/kritter.mp3
             public const string Sounds_PointLoss_LowValue_Kritter = Sounds_PointLoss_LowValue_ + "kritter.mp3";
+            // Assets/Sounds/PointLoss/LowValue/minecraft-hit.mp3
+            public const string Sounds_PointLoss_LowValue_MinecraftHit = Sounds_PointLoss_LowValue_ + "minecraft-hit.mp3";
             // Assets/Sounds/PointLoss/LowValue/windows-error.mp3
             public const string Sounds_PointLoss_LowValue_WindowsError = Sounds_PointLoss_LowValue_ + "windows-error.mp3";
 
