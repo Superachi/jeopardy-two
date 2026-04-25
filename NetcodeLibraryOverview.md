@@ -21,6 +21,7 @@ It follows the same general style as the older sequence doc:
 - **CPL**: ClientPacketListener
 - **PI**: PacketInfo
 - **IDA**: IDAssignment
+- **IDU**: IDUnassignment
 - **PW**: PacketWriter
 - **PR**: PacketReader
 - **ENet**: ENetConnection / ENetPacketPeer
@@ -73,7 +74,7 @@ Packet object         PW                  byte[]               PR               
 ## Case 3: Server Peer Connect -> Broadcast ID Assignment
 
 ```text
-Server ENet event        NH                  SS                  SPR                 IDA               ENet
+Server ENet event        NH                  SS                  SPM                 IDA/IDU           ENet
       |                  |                   |                   |                   |                  |
       | connect event    |                   |                   |                   |                  |
       |----------------->|                   |                   |                   |                  |
@@ -87,6 +88,28 @@ Server ENet event        NH                  SS                  SPR            
       |                  |                   |                   |------------------->|                  |
       |                  |                   |                   | broadcast packet   |                  |
       |                  |                   |                   |--------------------------------------->|
+## Case 3b: Server Peer Disconnect -> Broadcast ID Unassignment
+
+```text
+Server ENet event        NH                  SS                  SPM                 IDU               ENet
+      |                  |                   |                   |                   |                  |
+      | disconnect event |                   |                   |                   |                  |
+      |----------------->|                   |                   |                   |                  |
+      |                  | PeerDisconnected()|                   |                   |                  |
+      |                  | emit PeerLeft     |                   |                   |                  |
+      |                  |------------------>|                   |                   |                  |
+      |                  |                   | OnPeerDisconnected|                   |                  |
+      |                  |                   |------------------>|                   |                  |
+      |                  |                   |                   | update PeerIds     |                  |
+      |                  |                   |                   | create IDU         |                  |
+      |                  |                   |                   |------------------->|                  |
+      |                  |                   |                   | broadcast packet   |                  |
+      |                  |                   |                   |--------------------------------------->|
+```
+
+- **Meaning**: When a peer disconnects, the server updates its list of connected peers and sends out an ID-unassignment packet.
+- **Who triggers this**: `PeerLeft` emitted by [Nodes/Netcode/NetworkHandler.cs](Nodes/Netcode/NetworkHandler.cs#L1) and consumed by [Nodes/Netcode/PeerRegistry/ServerPeerManager.cs](Nodes/Netcode/PeerRegistry/ServerPeerManager.cs#L1).
+- **Why this matters**: This keeps all clients aware of which peer IDs are no longer valid.
 ```
 
 - **Meaning**: When a peer joins, the server updates its list of connected peers and sends out a fresh ID-assignment packet.
@@ -96,7 +119,7 @@ Server ENet event        NH                  SS                  SPR            
 ## Case 4: Client Receives ID Assignment
 
 ```text
-ENet                 NH                  CS                  CPR                 IDA
+ENet                 NH                  CS                  CPM                 IDA/IDU
  |                   |                   |                   |                   |
  | packet bytes      |                   |                   |                   |
  |------------------>|                   |                   |                   |
@@ -104,8 +127,8 @@ ENet                 NH                  CS                  CPR                
  |                   |------------------>|                   |                   |
  |                   |                   | OnClientPacket    |                   |
  |                   |                   |------------------>|                   |
- |                   |                   |                   | decode IDA        |
- |                   |                   |                   |------------------>|
+ |                   |                   |                   | decode IDA/IDU    |
+ |                   |                   |                   |------------------>| 
  |                   |                   |                   | decoded data      |
  |                   |                   |                   |<------------------|
 ```
@@ -117,7 +140,7 @@ ENet                 NH                  CS                  CPR                
 ## Case 5: Client Publishes Simpler Gameplay Signals
 
 ```text
-CPR                                    GNS
+CPM                                    GNS
  |                                      |
  | first packet?                        |
  | set LocalPeerId                      |
@@ -128,8 +151,8 @@ CPR                                    GNS
  |------------------------------------->|
 ```
 
-- **Meaning**: `ClientPeerManager` turns packet data into higher-level Godot signals.
-- **Who triggers this**: [Nodes/Netcode/PeerRegistry/ClientPeerManager.cs](Nodes/Netcode/PeerRegistry/ClientPeerManager.cs#L1) after decoding an `IDAssignment` packet.
+- **Meaning**: `ClientPeerManager` turns packet data (IDAssignment/IDUnassignment) into higher-level Godot signals.
+- **Who triggers this**: [Nodes/Netcode/PeerRegistry/ClientPeerManager.cs](Nodes/Netcode/PeerRegistry/ClientPeerManager.cs#L1) after decoding an `IDAssignment` or `IDUnassignment` packet.
 - **Why this matters**: The rest of the game can listen to simpler signals without caring about packet bytes.
 
 ## Case 6: Signal Subscription Lifecycle
@@ -172,7 +195,7 @@ NetworkHandler._Process(delta)
 - **Important**: [Nodes/Netcode/NetworkHandler.cs](Nodes/Netcode/NetworkHandler.cs#L1) now owns all shared network signal nodes.
 - **Important**: [Nodes/Netcode/PacketSerialization.cs](Nodes/Netcode/PacketSerialization.cs#L1) is the new serializer helper layer.
 - **Important**: [Nodes/Netcode/PacketInfo.cs](Nodes/Netcode/PacketInfo.cs#L1) now provides reusable `WritePayload` and `ReadPayload` hooks for packet subclasses.
-- **Important**: [Nodes/Netcode/IDAssignment.cs](Nodes/Netcode/IDAssignment.cs#L1) is the example packet currently using the serializer layer.
+- **Important**: [Nodes/Netcode/IDAssignment.cs](Nodes/Netcode/IDAssignment.cs#L1) and [Nodes/Netcode/IDUnassignment.cs](Nodes/Netcode/IDUnassignment.cs#L1) are the example packets currently using the serializer layer.
 - **Important**: [Nodes/Netcode/PeerRegistry/ClientPeerManager.cs](Nodes/Netcode/PeerRegistry/ClientPeerManager.cs#L1) now uses `LocalPeerId` and `RemotePeerIds` instead of the older mixed-type ID model.
 - **Important**: [Nodes/Netcode/PeerRegistry/ServerPeerManager.cs](Nodes/Netcode/PeerRegistry/ServerPeerManager.cs#L1) and [Nodes/Netcode/PeerRegistry/ServerPacketListener.cs](Nodes/Netcode/PeerRegistry/ServerPacketListener.cs#L1) now unsubscribe from shared signals in `_ExitTree()`.
 - **Important**: [Nodes/Netcode/NetworkHandler.cs](Nodes/Netcode/NetworkHandler.cs#L58) still does not call `HandlePackets()` from `_Process`, by design for now.

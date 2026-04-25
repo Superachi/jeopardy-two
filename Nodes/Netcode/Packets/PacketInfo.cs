@@ -5,16 +5,31 @@ namespace Nodes.Netcode.Packets;
 
 public partial class PacketInfo : RefCounted
 {
-	public enum PacketType : byte
+	/// <summary>
+	/// Built-in packet type constants for the netcode system. Use these for library packets; user packets should use their own byte values.
+	/// </summary>
+	public static class BuiltInPacketTypes
 	{
-		IdAssignment = 0,
-		PlayerPosition = 10,
+		/// <summary>
+		/// Assigns a new peer ID and the current peer list to a client.
+		/// </summary>
+		public const byte IdAssignment = 0;
+
+		/// <summary>
+		/// Notifies clients that a peer ID is no longer valid (peer left).
+		/// </summary>
+		public const byte IdUnassignment = 1;
+
+		/// <summary>
+		/// Example: Player position update packet.
+		/// </summary>
+		public const byte PlayerPosition = 10;
 	}
 
 	/// <summary>
-	/// The kind of packet this instance represents.
+	/// The packet type identifier for this packet. Use built-in constants for library packets, or any byte value for custom packets.
 	/// </summary>
-	public PacketType Type { get; protected set; }
+	public byte Type { get; protected set; }
 
 	/// <summary>
 	/// ENet transfer flags used when sending this packet.
@@ -25,10 +40,10 @@ public partial class PacketInfo : RefCounted
     /// Creates the raw bytes for this packet. The base version only writes the packet type.
     /// </summary>
     /// <returns>Byte array ready to send over the network.</returns>
-    public virtual byte[] Encode()
+	public virtual byte[] Encode()
 	{
 		var writer = new PacketWriter();
-		writer.WriteByte((byte)Type);
+		writer.WriteByte(Type);
 		WritePayload(writer);
 		return writer.ToArray();
 	}
@@ -42,11 +57,11 @@ public partial class PacketInfo : RefCounted
 		var reader = PacketReader.FromPacket(data);
 		if (!reader.TryReadByte(out byte packetType))
 		{
-			LogNode.Log("Received empty or null packet data.");
+			NetworkHandler.DebugLog("Received empty or null packet data.");
 			return;
 		}
 
-		Type = (PacketType)packetType;
+		Type = packetType;
 		ReadPayload(reader);
 	}
 

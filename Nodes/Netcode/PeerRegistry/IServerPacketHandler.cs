@@ -3,14 +3,14 @@ using Nodes.Netcode.Packets;
 namespace Nodes.Netcode.PeerRegistry;
 
 /// <summary>
-/// Handles a specific packet type received by the server peer registry.
+/// Handles a specific packet type received by the server packet listener.
 /// </summary>
-public interface IPacketHandler
+public interface IServerPacketHandler
 {
 	/// <summary>
 	/// The packet type this handler is responsible for.
 	/// </summary>
-	PacketInfo.PacketType PacketType { get; }
+	byte PacketType { get; }
 
 	/// <summary>
 	/// Handles packet bytes received from a specific peer.

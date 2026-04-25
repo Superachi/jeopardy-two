@@ -27,7 +27,7 @@ public partial class IDAssignment : PacketInfo
 	{
 		var info = new IDAssignment
 		{
-			Type = PacketType.IdAssignment,
+			Type = BuiltInPacketTypes.IdAssignment,
 			Flag = (int)ENetPacketPeer.FlagReliable,
 			Id = id,
 			RemoteIds = new List<byte>(remoteIds),
@@ -66,7 +66,7 @@ public partial class IDAssignment : PacketInfo
 	{
 		if (!reader.TryReadByte(out byte id))
 		{
-			LogNode.Log("IDAssignment packet is missing the assigned ID byte.");
+			NetworkHandler.DebugLog("IDAssignment packet is missing the assigned ID byte.");
 			return;
 		}
 

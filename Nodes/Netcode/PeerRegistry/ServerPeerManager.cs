@@ -22,7 +22,7 @@ public partial class ServerPeerManager : Node
         var networkHandler = NetworkHandler.Singleton.Instance;
         if (networkHandler == null)
         {
-            LogNode.Log("ServerPeerManager could not find NetworkHandler.");
+            NetworkHandler.DebugLog("ServerPeerManager could not find NetworkHandler.");
             return;
         }
 
@@ -55,7 +55,7 @@ public partial class ServerPeerManager : Node
         var networkHandler = NetworkHandler.Singleton.Instance;
         if (networkHandler?.Connection == null)
         {
-            LogNode.Log("Cannot broadcast ID assignment because server connection is null.");
+            NetworkHandler.DebugLog("Cannot broadcast ID assignment because server connection is null.");
             return;
         }
 
@@ -66,9 +66,23 @@ public partial class ServerPeerManager : Node
     /// Removes a disconnected peer ID from the active peer list.
     /// </summary>
     /// <param name="peerId">The ID of the peer that disconnected.</param>
+    /// <summary>
+    /// Handles a peer disconnecting and broadcasts an ID unassignment packet to all peers.
+    /// </summary>
+    /// <param name="peerId">The ID of the peer that disconnected.</param>
     private void OnPeerDisconnected(int peerId)
     {
-        PeerIds.Remove((byte)peerId);
-        // TODO: Create and broadcast an ID unassignment packet to connected peers.
+        var peerIdByte = (byte)peerId;
+        PeerIds.Remove(peerIdByte);
+
+        var networkHandler = NetworkHandler.Singleton.Instance;
+        if (networkHandler?.Connection == null)
+        {
+            NetworkHandler.DebugLog("Cannot broadcast ID unassignment because server connection is null.");
+            return;
+        }
+
+        // Broadcast ID unassignment to all peers
+        IDUnassignment.Create(peerIdByte).Broadcast(networkHandler.Connection);
     }
 }

@@ -21,14 +21,14 @@ public partial class ClientPeerManager : Node
         var networkHandler = NetworkHandler.Singleton.Instance;
         if (networkHandler == null)
         {
-            LogNode.Log("ClientPeerManager could not find NetworkHandler.");
+            NetworkHandler.DebugLog("ClientPeerManager could not find NetworkHandler.");
             return;
         }
 
         _generalNetworkSignals = networkHandler.GeneralNetworkSignals;
         if (_generalNetworkSignals == null)
         {
-            LogNode.Log("ClientPeerManager could not find GeneralNetworkSignals under NetworkHandler.");
+            NetworkHandler.DebugLog("ClientPeerManager could not find GeneralNetworkSignals under NetworkHandler.");
             return;
         }
     }
@@ -41,7 +41,7 @@ public partial class ClientPeerManager : Node
     {
         if (_generalNetworkSignals == null)
         {
-            LogNode.Log("ClientPeerManager cannot emit ID signals without GeneralNetworkSignals.");
+            NetworkHandler.DebugLog("ClientPeerManager cannot emit ID signals without GeneralNetworkSignals.");
             return;
         }
 

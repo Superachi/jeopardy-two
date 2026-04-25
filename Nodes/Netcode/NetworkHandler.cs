@@ -19,8 +19,13 @@ public partial class NetworkHandler : Node
     public ClientSignals ClientSignals { get; } = new();
     public GeneralNetworkSignals GeneralNetworkSignals { get; } = new();
 
+    /// <summary>
+    /// The maximum number of peers allowed in the session. Configurable at construction.
+    /// </summary>
+    public int MaxPeerCount { get; set; } = 256;
+
     // Server vars
-    private Queue<int> _availablePeerIds = new(Enumerable.Range(0, 256));
+    private Queue<int> _availablePeerIds;
 
     private Dictionary<int, ENetPacketPeer> _clientPeers = new();
 
@@ -33,10 +38,28 @@ public partial class NetworkHandler : Node
 
     public ENetConnection? Connection => _connection;
 
+    /// <summary>
+    /// Enables or disables debug logging for all netcode components.
+    /// </summary>
+    public static bool DebugLoggingEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Wrapper for LogNode.Log that checks DebugLoggingEnabled.
+    /// </summary>
+    public static void DebugLog(string message)
+    {
+        if (DebugLoggingEnabled)
+            LogNode.Log(message);
+    }
+
+    /// <summary>
+    /// Initializes the NetworkHandler and its child nodes. Sets up peer ID pool.
+    /// </summary>
     public override void _Ready()
     {
         Singleton.MarkAsSingleton(this);
-        
+        _availablePeerIds = new Queue<int>(Enumerable.Range(0, MaxPeerCount));
+
         AddChild(ServerPeerManager);
         AddChild(ServerPacketListener);
         AddChild(ClientPeerManager);
@@ -52,12 +75,12 @@ public partial class NetworkHandler : Node
         var result = _connection.CreateHostBound(ip, port);
         if (result != Error.Ok)
         {
-            LogNode.Log($"Failed to start server: {result}");
+            DebugLog($"Failed to start server: {result}");
             _connection = null;
             return;
         }
 
-        LogNode.Log($"Server started successfully on {ip}:{port}");
+        DebugLog($"Server started successfully on {ip}:{port}");
         _isServer = true;
     }
 
@@ -67,12 +90,12 @@ public partial class NetworkHandler : Node
         var result = _connection.CreateHost(1);
         if (result != Error.Ok)
         {
-            LogNode.Log($"Failed to start client: {result}");
+            DebugLog($"Failed to start client: {result}");
             _connection = null;
             return;
         }
 
-        LogNode.Log($"Client started successfully on {ip}:{port}");
+        DebugLog($"Client started successfully on {ip}:{port}");
         _isServer = false;
     }
 
@@ -95,7 +118,7 @@ public partial class NetworkHandler : Node
             switch (eventType)
             {
                 case ENetConnection.EventType.Error:
-                    LogNode.Log("Network error occurred.");
+                    DebugLog("Network error occurred.");
                     return;
 
                 case ENetConnection.EventType.Connect:
@@ -141,11 +164,11 @@ public partial class NetworkHandler : Node
     {
         if (!_availablePeerIds.TryDequeue(out int peerId))
         {
-            LogNode.Log("No peer IDs available.");
+            DebugLog("No peer IDs available.");
             return;
         }
 
-        LogNode.Log("Peer connected with ID: " + peerId);
+        DebugLog("Peer connected with ID: " + peerId);
         peer.SetMeta("id", peerId);
         _clientPeers[peerId] = peer;
 
@@ -156,7 +179,7 @@ public partial class NetworkHandler : Node
     {
         if (!peer.HasMeta("id"))
         {
-            LogNode.Log("Peer disconnected without an assigned ID.");
+            DebugLog("Peer disconnected without an assigned ID.");
             return;
         }
 
@@ -164,19 +187,19 @@ public partial class NetworkHandler : Node
         _availablePeerIds.Enqueue(peerId);
         _clientPeers.Remove(peerId);
 
-        LogNode.Log($"Successfully disconnected: {peerId} from server!");
+        DebugLog($"Successfully disconnected: {peerId} from server!");
         ServerSignals.EmitSignal(ServerSignals.SignalName.PeerLeft, peerId);
     }
 
     private void ConnectedToServer()
     {
-        LogNode.Log("Connected to server successfully.");
+        DebugLog("Connected to server successfully.");
         ClientSignals.EmitSignal(ClientSignals.SignalName.JoinedServer);
     }
 
     private void DisconnectedFromServer()
     {
-        LogNode.Log("Disconnected from server.");
+        DebugLog("Disconnected from server.");
         _connection = null;
         ClientSignals.EmitSignal(ClientSignals.SignalName.LeftServer);
     }
@@ -185,7 +208,7 @@ public partial class NetworkHandler : Node
     {
         if (_isServer)
         {
-            LogNode.Log("Cannot disconnect client from server mode.");
+            DebugLog("Cannot disconnect client from server mode.");
             return;
         }
 
