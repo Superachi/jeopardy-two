@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Achi.Godot.Logging;
+using Godot;
 using JeopardyTwo.Helpers.Commands;
 
 namespace Models.Commands;
@@ -21,7 +22,7 @@ public class CSHelp : CommandSpec
         LogNode.Log("Available commands:");
         foreach (var command in commands)
         {
-            LogNode.Log($"/{command.Name} - {command.Description}");
+            GD.Print($"/{command.Name} - {command.Description}");
         }
     }
 }

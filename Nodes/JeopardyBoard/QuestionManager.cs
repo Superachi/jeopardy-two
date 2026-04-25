@@ -12,6 +12,7 @@ public partial class QuestionManager : Node
 {
     public static Singleton<QuestionManager> Singleton { get; private set; } = new();
     public static int ColumnCount { get; private set; }
+    public static QuestionModel? CurrentQuestion { get; private set; }
 
     public override void _Ready()
     {
@@ -58,6 +59,8 @@ public partial class QuestionManager : Node
 
         var questionScreen = SceneCreationHelper.InstantiateSceneForType<QuestionScreen>();
         Singleton.Instance.AddChild(questionScreen);
+
+        CurrentQuestion = question;
 
         questionScreen.Initialize(category, question);
     }

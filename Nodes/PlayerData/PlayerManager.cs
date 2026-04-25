@@ -4,6 +4,7 @@ using Achi.Godot.Common;
 using Achi.Godot.Logging;
 using Achi.Godot.PathResolving;
 using Godot;
+using JeopardyTwo.Nodes.JeopardyBoard;
 using Nodes.Display;
 using RecoilTwo.Paths.Generated;
 
@@ -74,6 +75,18 @@ public partial class PlayerManager : Node
 
     #region Command executions
 
+    public static void GiveQuestionPointsToPlayer(int playerIndex)
+    {
+        var points = QuestionManager.CurrentQuestion?.PointValue ?? 0;
+        GivePointsToPlayer(playerIndex, points);
+    }
+
+    public static void TakeQuestionPointsFromPlayer(int playerIndex)
+    {
+        var points = QuestionManager.CurrentQuestion?.PointValue ?? 0;
+        GivePointsToPlayer(playerIndex, -points);
+    }
+
     public static void GivePointsToPlayer(int playerIndex, int points)
     {
         Singleton.Instance.AddScoreForPlayer(playerIndex, points);
@@ -127,6 +140,27 @@ public partial class PlayerManager : Node
 
         soundToPlay = Common.Helpers.RNGHelper.ChooseFromCollection(possibleSounds);
         new AudioPlayModel(soundToPlay).Play();
+
+        var highestScore = 0;
+        var winningTally = (ScoreTally?)null;
+        foreach (var child in Singleton.Instance.GetChildren())
+        {
+            if (child is ScoreTally scoreTally)
+            {
+                scoreTally.HideWinningEffect();
+                
+                if (scoreTally.Score > highestScore)
+                {
+                    highestScore = scoreTally.Score;
+                    winningTally = scoreTally;
+                }
+            }
+        }
+
+        if (winningTally != null)
+        {
+            winningTally.ShowWinningEffect();
+        }
     }
 
     private void AddScoreForPlayer(int playerIndex, int points)

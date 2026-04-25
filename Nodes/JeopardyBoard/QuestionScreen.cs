@@ -11,6 +11,7 @@ namespace JeopardyTwo.Nodes.JeopardyBoard;
 public partial class QuestionScreen : Control
 {
     private RichTextLabel _categoryLabel = null!;
+    private RichTextLabel _pointValueLabel = null!;
     private RichTextLabel _questionLabel = null!;
     private RichTextLabel _answerLabel = null!;
     private Button _revealButton = null!;
@@ -25,6 +26,7 @@ public partial class QuestionScreen : Control
         Name = nameof(QuestionScreen);
         
         _categoryLabel = GetNode<RichTextLabel>("CategoryLabel");
+        _pointValueLabel = GetNode<RichTextLabel>("PointValueLabel");
         _questionLabel = GetNode<RichTextLabel>("QuestionLabel");
         _answerLabel = GetNode<RichTextLabel>("AnswerLabel");
         _revealButton = GetNode<Button>("RevealButton");
@@ -41,6 +43,7 @@ public partial class QuestionScreen : Control
         _question = question;
 
         _categoryLabel.Text = category.Name;
+        _pointValueLabel.Text = $"...For {question.PointValue} points";
         _questionLabel.Text = question.Question;
         _answerLabel.Text = question.Answer;
         _answerLabel.Hide();
@@ -68,7 +71,11 @@ public partial class QuestionScreen : Control
         {
             new() {
                 NodeWithFontToResize = _categoryLabel,
-                Ratio = 0.1f,
+                Ratio = 0.03f,
+            },
+            new() {
+                NodeWithFontToResize = _pointValueLabel,
+                Ratio = 0.02f,
             },
             new() {
                 NodeWithFontToResize = _questionLabel,
@@ -76,12 +83,13 @@ public partial class QuestionScreen : Control
             },
             new() {
                 NodeWithFontToResize = _answerLabel,
-                Ratio = 0.1f,
+                Ratio = 0.08f,
             }
         };
         FontResizeHelper.ResizeNodeFonts(nodeFonts);
 
         AdjustLabelSettings(_categoryLabel, 0.15f);
+        AdjustLabelSettings(_pointValueLabel, 0.2f);
         AdjustLabelSettings(_questionLabel, 0.4f);
 
         var answerVOffsetRatio = 0.65f;

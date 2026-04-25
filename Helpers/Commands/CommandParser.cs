@@ -19,6 +19,7 @@ public static class ClientCommandParser
         new CSSetPlayerTitle(),
         new CSRevealAnswer(),
         new CSAward(),
+        new CSPunish(),
     };
 
     public static List<CommandSpec> Commands => _commands;

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://behrxf2g1vxl1"]
 
-[ext_resource type="Script" uid="uid://bj5egmsjff5tv" path="res://Nodes/QuestionScreen.cs" id="1_0fqru"]
+[ext_resource type="Script" uid="uid://bj5egmsjff5tv" path="res://Nodes/JeopardyBoard/QuestionScreen.cs" id="1_0fqru"]
 [ext_resource type="StyleBox" uid="uid://cunxi0ti6ne24" path="res://Themes/BlackPanel.tres" id="2_3ea28"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwgkv"]
@@ -43,6 +43,14 @@ offset_bottom = 40.0
 script = ExtResource("1_0fqru")
 
 [node name="CategoryLabel" type="RichTextLabel" parent="." unique_id=1180019178]
+layout_mode = 0
+offset_left = 256.0
+offset_right = 448.0
+offset_bottom = 40.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointValueLabel" type="RichTextLabel" parent="." unique_id=1990314513]
 layout_mode = 0
 offset_left = 256.0
 offset_right = 448.0

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d3mb2dso8q68d"]
+
+[ext_resource type="Texture2D" uid="uid://dgown678jqofs" path="res://Assets/Sprites/Sparkle.png" id="1_d63bg"]
+
+[node name="Sparkle" type="Node2D" unique_id=187906349]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1112872342]
+position = Vector2(64, 64)
+scale = Vector2(0.6336634, 0.6336634)
+texture = ExtResource("1_d63bg")

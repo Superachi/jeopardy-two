@@ -2,12 +2,15 @@
 
 [ext_resource type="StyleBox" uid="uid://cunxi0ti6ne24" path="res://Themes/BlackPanel.tres" id="1_je5kn"]
 [ext_resource type="Script" uid="uid://2fagdwdhxk78" path="res://Nodes/PlayerData/ScoreTally.cs" id="2_iejqr"]
+[ext_resource type="PackedScene" uid="uid://bvaxr7x5u8r5w" path="res://Nodes/Visuals/WinnerSparkle.tscn" id="3_2yejj"]
 
 [node name="Panel" type="Panel" unique_id=1188255817]
 offset_right = 256.0
 offset_bottom = 144.0
 theme_override_styles/panel = ExtResource("1_je5kn")
 script = ExtResource("2_iejqr")
+
+[node name="WinnerSparkle" parent="." unique_id=762417621 instance=ExtResource("3_2yejj")]
 
 [node name="NameLabel" type="RichTextLabel" parent="." unique_id=1072947009]
 layout_mode = 0
@@ -34,5 +37,14 @@ offset_right = 256.0
 offset_bottom = 136.0
 theme_override_font_sizes/normal_font_size = 32
 text = "00000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IndexLabel" type="RichTextLabel" parent="." unique_id=935867305]
+layout_mode = 0
+offset_left = 112.0
+offset_top = -24.0
+offset_right = 144.0
+text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1

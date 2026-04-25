@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bvaxr7x5u8r5w"]
+
+[ext_resource type="Texture2D" uid="uid://dgown678jqofs" path="res://Assets/Sprites/Sparkle.png" id="1_1memn"]
+
+[sub_resource type="Curve" id="Curve_50amx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24583332, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0llrs"]
+curve = SubResource("Curve_50amx")
+
+[sub_resource type="Curve" id="Curve_nwrsu"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5020833, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ly2py"]
+curve = SubResource("Curve_nwrsu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b28uk"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(150, 100, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ly2py")
+alpha_curve = SubResource("CurveTexture_0llrs")
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=762417621]
+amount = 4
+sub_emitter = NodePath(".")
+texture = ExtResource("1_1memn")
+speed_scale = 0.5
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_b28uk")
